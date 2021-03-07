@@ -1,0 +1,7 @@
+how to install debian linux
+
+step 1: don't
+step 2: install arch, it's funnier this way
+
+For realz, instalowałem linuxy już dwucyforową liczbę razy i raczej wiem jak to zrobić  bez tutoriali. W razie problemów, rtfm. albo wiki danego distro.
+
