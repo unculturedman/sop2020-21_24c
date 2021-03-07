@@ -5,3 +5,9 @@ step 2: install arch, it's funnier this way
 
 For realz, instalowałem linuxy już dwucyforową liczbę razy i raczej wiem jak to zrobić  bez tutoriali. W razie problemów, rtfm. albo wiki danego distro.
 
+idąc przez instalację, dostaniesz prompt o język. Wybierz angielski, jezyk klawiatury zmienisz potem.
+Samemu skonfiguruj dyski, raczej nie potrzebujesz osobnnej partycji na home, jeśli masz tylko jeden dysk. Zrób miejsce na swap.
+Przechodź dalej, czytaj co jest napisane w instalatorze, biorąc najbardziej podstawowe opcje instalacji, najlepiej bez grafiki, coby doinstalować i3wm najlepszy najsilniejszy.
+O ile pamiętam, większość instalatorów do linuxów sporo rzeczy załatwia automagicznie, nietrudno się w tym odnaleźć.
+apt n aptitude do instalacji
+ustaw sobie usera, żeby nie latać ciagle na roocie.
