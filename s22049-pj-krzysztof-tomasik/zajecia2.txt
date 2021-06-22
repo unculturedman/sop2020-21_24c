@@ -1,0 +1,62 @@
+Wstęp do skryptów bash
+======================
+
+Bash to język skryptowy używany przez większość linuxów. Wykorzystuje się go jako shella, aczkolwiek zsh jest lepsze, a ohmyzsh to już w ogóle niebo.
+
+Skrypty w linuxach muszą być wykonywalne, żeby były wykonywalne. Chyba że jest się rootem. Root ignoruje prawa śmiertelników. Dlatego właśnie, nie powinno się korzystać z konta roota, bo można zrobić sobie bardzo dużo krzywdy.
+Tworząc skrypcior nie zapomnij o shebangu - `#!/bin/bash`. W przeciwnym wypadku system potraktuje twój skrypt jakby był napisany w domyślnym języku powłoki - w przypadku niektórych masochistów może to być nawet python albo js...
+
+`#` - komentarz
+`VAR=value` - nie zapomnij o braku spacji, kiedy deklarujesz zmienną
+export pozwala na wykorzystywanie zmiennej poza kontekstem skryptu. Flaga -n usuwa zmienną.
+
+Ćwiczenie drugie:
+```
+X=tekst
+echo $X
+bash
+echo $X
+```
+$X nie jest wyeksportowane, więc w nowej instancji basha nie jest zachowane. dodanie `export X` przed linią `bash` powinno załatwić sprawę.
+
+Ważne zmienne:
+
+$*, $@ - wszystkie argumenty skryptu. Różnicę pokażę za jakiś czas, albo na rzutniku. Jeśli ktoś wie już teraz, to proszę się zgłosić i wyjaśnić - dam plusa.
+$0 - nazwa skryptu
+$1, $2, ... - kolejne argumenty skryptu
+$? - kod zakończenia ostatniego polecenia
+$$ - PID procesu bieżącej powłoki
+PATH - Ścieżka do wykonywalnych plików dostępnych w każdym kontekście
+RANDOM - /dev/random
+PWD - aktualna ścieżka, tak jak przy komendzie pwd
+PS1 - Znak zachęty
+USER - username
+HOSTNAME - hostname
+OSTYPE - typ systemu, najpewniej linux-gnu
+
+Operacje na stringach
+${#TEKST} - długość ciągu znaków
+${TEKST:p} - podciąg rozpoczynający się od znaku o indeksie p
+${TEKST:p:l} - podciąg rozpoczynający się od znaku o indeksie p, a długości l
+${TEKST/w/z} - zamienia tekst pasujący do ```w``` na tekst ```z```
+
+$(tekst) wykonuje tekst jako komendę. Możesz zapisywać tym syntaxem zmienne również, wtedy użyte wykonują rzeczoną komendę.
+
+W bashu są funkcje, ale nie przyjmują argumentów, liczone są tak jak przy skrypcie i tak się je odpala w kodzie. Spawnują nową instancję basha, żeby było zabawniej.
+
+Regexy robi się na ogół korzystając z seda. Quickref do składni:
+\[…\] - w miejsce … wchodzi lista znaków które mogą wystąpić na danym miejscu
+() - zbiór opcji
+^ - początek ciągu znaków lub negacja
+$ - koniec ciągu znaków
+* - wzorzec ma się powtarzać dowolną liczbę razy (od 0 do nieskończoności)
++ - wzorzec ma się powtarzać co najmniej raz
+. - dowolny znak
+…-… - zakres znaków
+\ - escape character
+
+
+Zadanie domowe:
+cat $1 | sed ''s/Krzysztof/`printf "\033[31mKrzysztof\033[0m"`/g'' 
+
+Ćwiczenia wymagające kodu w folderze zajęcia2.
