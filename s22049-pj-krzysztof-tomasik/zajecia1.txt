@@ -1,0 +1,37 @@
+INSTALACJA DEBIANA
+==================
+
+ - Step 1: Don't.
+ - Step 2: Get yourself an Archlinux copy, dd it onto an unused USB flash drive.
+   - Step 2.1: Run it.
+   - Step 2.2: General setup:
+    - Step 2.2.1: `loadkeys pl`
+    - Step 2.2.2: Verify your network connection, use `ip link`. dhcpd should be running by default, if you have wired connection you're set. Otherwise, use iwctl. https://wiki.archlinux.org/title/Iwd#iwctl
+    - Step 2.2.3: Ensure your system clock works correctly - `timedatectl set-ntp true`
+    - Step 2.2.4: Use `fdisk` to partition disks. `fdisk /dev/sdaX`. Don't forget to leave first 2 MB free for grub boot. Use last 2-4 GB of space for /swap partition. You don't need more, if your memory goes this far into swap space, your computer is effectively bricked anyway.
+    - Step 2.2.5: Use `mkfs.ext4 /dev/system_partition` to format your partitions used in system.
+    - Step 2.2.6: Use `mkswap /dev/swap_partition` to format your swap partition.
+    - Step 2.2.7: Use `mkdir /mnt` and then `mount /dev/system_partition /mnt` to mount your system partition. If you have more partitions, mount them also.
+    - Step 2.2.8: Use `swapon /dev/swap_partition` to mount swap.
+  - Step 3: Install the system
+    - Step 3.1: `pacstrap /mnt base base-devel linux linux-firmware dhcpcd mandb man-pages texinfo grub vim i3`. This should be enough for your initial setup. You may want to also add `iw wifi-menu` or other tools for your wifi, if you use wireless connection. https://wiki.archlinux.org/title/Network_configuration/Wireless
+    - Step 3.1.1: Double-check if this install xorg packages for you. If not, before step 5, do 'pacman -S xorg'.
+    - Step 3.2: `genfstab -U /mnt >> /mnt/etc/fstab`
+    - Step 3.3: `arch-chroot /mnt`
+    You should be logged into your system right now. But your journey is not over yet.
+    - Step 3.4: `ln -sf /usr/share/zoneinfo/Region/City /etc/localtime`. Europe/Warsaw for polish locale.
+    - Step 3.5: `hwclock --systohc` sets your system time.
+    - Step 3.6: edit /etc/locale.gen, you'll probably want to uncomment `LANG=en_US.UTF-8` and `LANG=pl_PL.UTF-8`. Run `locale-gen`.
+    - Step 3.7: Create and edit /etc/hosts files and add your hostname as 127.0.0.1 and ::1 addresses, if you'd like.
+    - Step 3.8: `mkinitcpio -P` creates initramfs.
+    - Step 3.9: `passwd`
+    - Step 3.10: Create a non-root user for you and passwd it too. Add it to /etc/suders file.
+  - Step 4: Boot loader
+    - Step 4.1: Did you create a /boot/ partition in the first 2MB of the disk like you were asked to? No? Do it.
+    - Step 4.2: `grub-mkconfig -o /boot/grub/grub.cfg`
+    - Step 4.3: `grub-install --target=i386-pc /dev/sdX` Target the DISK not the PARTITION.
+  - Step 5: Change your xorg configuration at /etc/X11/xinit/xinitrc. Delete last lines (those with exec) and add exec i3 at the end. Then, restart your PC, boot into your new system and after logging in execute `startx`. Welcome to your new PC. Have fun. Don't forget to change your default i3 terminator to something normal, like terminator or cool-retro-term.
+
+Well, ten żart zaszedł za daleko.
+Jeśli chcesz zainstalować debiana, postępuj zgodnie z instrukcjami, które ci się wyświetlają kiedy odpalasz instalator, podobnie jak w przypadku instalacji Windowsa czy jakiegokolwiek innego ludzkiego systemu. Nie zapomnij zrobić miejsca na swap.
+Jeśli korzystasz z virtualboxa, przy tworzeniu nowej maszyny nie zapomnij zaznaczyć, że instalujesz debiana, a nie coś innego.
