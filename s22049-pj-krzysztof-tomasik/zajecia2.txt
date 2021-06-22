@@ -58,5 +58,3 @@ $ - koniec ciągu znaków
 
 Zadanie domowe:
 cat $1 | sed ''s/Krzysztof/`printf "\033[31mKrzysztof\033[0m"`/g'' 
-
-Ćwiczenia wymagające kodu w folderze zajęcia2.
